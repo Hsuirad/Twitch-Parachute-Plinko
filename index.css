@@ -1,0 +1,12 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+canvas{
+	margin: 0;
+	padding: 0;
+}
+@font-face {
+    font-family: 'PixelFont';
+    src: url('./fonts/Pixeboy.ttf');
+}

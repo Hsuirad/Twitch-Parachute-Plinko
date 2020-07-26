@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<title>Parachute Drop/Plinko</title>
+		<link rel = 'stylesheet' href = 'index.css' />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/comfy.js/dist/comfy.min.js"></script> 
+		<script src="https://alca.sfo2.cdn.digitaloceanspaces.com/sharex/2019/12/06/twemoji-parser.js"></script>
+	</head>
+
+	<body>
+		<canvas id = "canvas"></canvas>
+		<script src="https://unpkg.com/twitch-emoji@^0.2.0/dist/twitchemoji.min.js"></script>
+		<script src = 'index.js'></script>
+		<script>
+			let emojis = "";
+			ComfyJS.onCommand = (user, command, message, flags, extra) => {
+				switch(command){
+					case 'drop':
+						if(canPlayPara && usernames.includes(user) == false){
+							lastCommandTime = Date.now();
+							emojis = twitchEmoji.parse(message);
+							console.log('a')
+							if(emojis.includes('http')){
+								addJumper(user, getSrc(emojis));
+								console.log('b')
+							} else {
+								addJumper(user, "", extra.messageEmotes?("https://static-cdn.jtvnw.net/emoticons/v1/"+Object.keys(extra.messageEmotes)[0]+"/3.0") : "");
+								console.log('c')
+							}
+
+							if(gameStarted == false) setTimeout(startGame, 600);
+							usernames.push(user)
+						}
+						break;
+					case 'plink':
+						if(canPlayPlinko && usernames.includes(user) == false){
+							lastCommandTime = Date.now()
+							emojis = twitchEmoji.parse(message);
+
+							if(emojis != "" && emojis.includes('http')){
+								addPlinker(user, getSrc(emojis));
+							} else {
+								addPlinker(user, "", extra.messageEmotes?("https://static-cdn.jtvnw.net/emoticons/v1/"+Object.keys(extra.messageEmotes)[0]+"/3.0") : "");
+							}
+							
+							if(gameStarted == false){
+								setTimeout(startGame, 600);
+							}
+							usernames.push(user)
+						}
+						break;
+				}
+				emojis = "";
+			}
+			ComfyJS.Init( "tenaciousw" )
+		</script>
+	</body>
+</html>
