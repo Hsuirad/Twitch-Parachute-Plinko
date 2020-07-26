@@ -681,12 +681,12 @@ let playGame = () => {
 	}
 }
 
-setTimeout(startGame, 2001);
+// setTimeout(startGame, 2001);
 
-setInterval(() => {
-	addJumper('test');
-	addJumper('test', getSrc(twitchEmoji.parse('Kappa', {emojiSize: 'large'})))
-	addPlinker('test')
-}, 2000)
+// setInterval(() => {
+// 	addJumper('test');
+// 	addJumper('test', getSrc(twitchEmoji.parse('Kappa', {emojiSize: 'large'})))
+// 	addPlinker('test')
+// }, 2000)
 
 function startGame(){gameInterval = setInterval(playGame, 16.7);}
